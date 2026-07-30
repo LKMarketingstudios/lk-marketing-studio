@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LK Marketing Studio | Estratégia, Design e Conteúdo</title>
+<meta name="description" content="A LK Marketing Studio une estratégia, design e conteúdo para construir marcas fortes, gerar autoridade e impulsionar empresas no ambiente digital." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B0B0B;
+    --obsidian:#0D0D0D;
+    --mist:#E5E7EB;
+    --mist-dim:rgba(229,231,235,.65);
+    --mist-faint:rgba(229,231,235,.5);
+    --violet:#7B2CBF;
+    --azure:#2563EB;
+    --gold:#D4AF37;
+    --white:#FFFFFF;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--ink);
+    color:var(--mist);
+    font-family:'Montserrat',sans-serif;
+    cursor:none;
+    overflow-x:hidden;
+  }
+  @media (max-width:768px), (hover:none){ body{ cursor:auto; } }
+  h1,h2,h3{ font-family:'Poppins',sans-serif; color:var(--white); }
+  a{ color:inherit; text-decoration:none; }
+  button{ font-family:inherit; cursor:pointer; border:none; background:none; color:inherit; }
+  ::selection{ background:rgba(123,44,191,.45); color:#fff; }
+  ::-webkit-scrollbar{ width:10px; }
+  ::-webkit-scrollbar-track{ background:var(--ink); }
+  ::-webkit-scrollbar-thumb{ background:linear-gradient(180deg,var(--violet),var(--azure)); border-radius:999px; }
+
+  .container{ max-width:1200px; margin:0 auto; padding:0 24px; }
+  .section{ padding:96px 0; position:relative; }
+  .section-alt{ background:var(--obsidian); }
+  .eyebrow{ display:inline-block; letter-spacing:.35em; font-size:.7rem; font-weight:600; text-transform:uppercase; color:var(--gold); }
+  #sobre .eyebrow, #portfolio .eyebrow, #contato .eyebrow{ color:var(--gold); }
+  .center{ text-align:center; margin-left:auto; margin-right:auto; }
+  .max-w{ max-width:640px; }
+
+  /* Texto em degradê, com fallback sólido garantido caso o navegador não suporte clip de texto */
+  .grad-gold, .grad-cool{ color:var(--gold); }
+  @supports ((-webkit-background-clip:text) or (background-clip:text)){
+    .grad-gold{
+      background:linear-gradient(120deg,#D4AF37 0%,#F4E4A6 40%,#D4AF37 100%);
+      -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent;
+    }
+    .grad-cool{
+      background:linear-gradient(120deg,#A78BFA 0%,#7B2CBF 45%,#2563EB 100%);
+      -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent;
+    }
+  }
+
+  .glass{ background:rgba(255,255,255,.04); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); border:1px solid rgba(255,255,255,.09); border-radius:24px; }
+  .glow{ box-shadow:0 0 40px rgba(123,44,191,.35); }
+  .glow-gold{ box-shadow:0 0 30px rgba(212,175,55,.25); }
+  .brand-gradient{ background:linear-gradient(135deg,var(--violet) 0%,var(--azure) 100%); }
+  .brand-gradient-soft{ background:linear-gradient(135deg,rgba(123,44,191,.18) 0%,rgba(37,99,235,.18) 100%); }
+
+  .btn{ display:inline-flex; align-items:center; gap:8px; border-radius:999px; padding:16px 32px; font-weight:600; font-family:'Poppins',sans-serif; font-size:.95rem; transition:transform .3s; }
+  .btn:hover{ transform:scale(1.05); }
+  .btn-primary{ background:linear-gradient(135deg,var(--violet),var(--azure)); color:#fff; box-shadow:0 0 40px rgba(123,44,191,.35); }
+  .btn-outline{ background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.12); color:var(--mist); }
+  .btn-outline:hover{ border-color:rgba(212,175,55,.5); color:var(--gold); }
+  .btn-dark{ background:var(--ink); color:var(--gold); box-shadow:0 0 30px rgba(212,175,55,.25); }
+  .btn-block{ width:100%; justify-content:center; }
+  @media (min-width:640px){ .btn-block{ width:auto; } }
+
+  /* HEADER */
+  header{ position:fixed; top:0; left:0; width:100%; z-index:50; padding:22px 0; transition:all .4s; }
+  header.scrolled{ padding:12px 0; background:rgba(255,255,255,.04); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); border-bottom:1px solid rgba(255,255,255,.09); box-shadow:0 0 40px rgba(123,44,191,.25); }
+  .header-row{ display:flex; align-items:center; justify-content:space-between; }
+  .logo{ font-family:'Poppins',sans-serif; font-weight:700; font-size:1.25rem; }
+  nav.desktop-nav{ display:none; gap:32px; }
+  nav.desktop-nav a{ font-size:.9rem; color:var(--mist-dim); transition:color .3s; }
+  nav.desktop-nav a:hover{ color:var(--gold); }
+  .header-cta{ display:none; }
+  .menu-btn{ color:var(--mist); display:block; }
+  @media (min-width:1024px){
+    nav.desktop-nav{ display:flex; }
+    .header-cta{ display:inline-flex; }
+    .menu-btn{ display:none; }
+  }
+
+  .mobile-menu{ position:fixed; inset:0; z-index:60; background:rgba(0,0,0,.98); backdrop-filter:blur(20px); display:none; }
+  .mobile-menu.open{ display:block; }
+  .mobile-menu-top{ display:flex; justify-content:space-between; align-items:center; padding:24px; }
+  .mobile-nav{ display:flex; flex-direction:column; align-items:center; gap:32px; padding-top:48px; }
+  .mobile-nav a{ font-family:'Poppins',sans-serif; font-size:1.5rem; color:var(--mist); }
+  .mobile-nav a:hover{ color:var(--gold); }
+
+  /* HERO */
+  .hero{ position:relative; min-height:100vh; display:flex; align-items:center; justify-content:center; overflow:hidden; padding-top:112px; }
+  .blob{ position:absolute; border-radius:9999px; filter:blur(140px); pointer-events:none; animation:float 6s ease-in-out infinite; }
+  .blob-1{ top:-128px; left:-128px; width:512px; height:512px; background:rgba(123,44,191,.4); }
+  .blob-2{ bottom:-160px; right:-80px; width:576px; height:576px; background:rgba(37,99,235,.3); animation-delay:2s; }
+  @keyframes float{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-14px);} }
+  .hero-overlay{ position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,.4), rgba(0,0,0,.7) 60%, #000); }
+  .hero-inner{ position:relative; z-index:10; text-align:center; max-width:880px; margin:0 auto; padding:0 24px; }
+  .hero-badge{ padding:10px 20px; border:1px solid rgba(212,175,55,.25); }
+  h1.hero-title{ margin-top:32px; font-size:2.4rem; font-weight:700; line-height:1.15; }
+  @media (min-width:640px){ h1.hero-title{ font-size:3.2rem; } }
+  @media (min-width:768px){ h1.hero-title{ font-size:3.8rem; } }
+  @media (min-width:1024px){ h1.hero-title{ font-size:4.5rem; } }
+  .hero-sub{ margin:28px auto 0; max-width:640px; color:var(--mist-dim); font-size:1.05rem; }
+  .hero-actions{ margin-top:40px; display:flex; flex-direction:column; align-items:center; gap:16px; }
+  @media (min-width:640px){ .hero-actions{ flex-direction:row; justify-content:center; } }
+  .scroll-cue{ position:absolute; bottom:40px; left:50%; transform:translateX(-50%); z-index:10; color:var(--mist-faint); animation:float 2s ease-in-out infinite; }
+
+  /* REVEAL */
+  .reveal{ opacity:0; transform:translateY(28px); transition:opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1); }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* SOBRE */
+  .about-grid{ display:grid; gap:56px; align-items:center; }
+  @media (min-width:1024px){ .about-grid{ grid-template-columns:1fr 1fr; } }
+  .about-card{ padding:40px; position:relative; }
+  .about-stats{ display:grid; grid-template-columns:1fr 1fr; gap:32px; text-align:center; }
+  .counter{ font-family:'Poppins',sans-serif; font-size:2.4rem; font-weight:700; }
+  @media (min-width:768px){ .counter{ font-size:2.8rem; } }
+  .counter-label{ margin-top:8px; font-size:.85rem; color:var(--mist-faint); }
+
+  h2.section-title{ margin-top:16px; font-size:1.9rem; font-weight:700; }
+  @media (min-width:640px){ h2.section-title{ font-size:2.4rem; } }
+  @media (min-width:768px){ h2.section-title{ font-size:2.9rem; } }
+  p.lead{ margin-top:16px; color:var(--mist-faint); }
+  p.body-text{ margin-top:24px; color:var(--mist-dim); line-height:1.7; }
+
+  /* Escurecer todas as cores em seções claras */
+  /* APENAS SOBRE tem fundo claro + letras ESCURAS */
+  #sobre {
+    --mist: #1a1a1a;
+    --mist-dim: #333;
+    --mist-faint: #555;
+  }
+  #sobre h2, #sobre h3{ color:#1a1a1a; }
+  #sobre .grad-cool{ color:#7B2CBF; }
+  #sobre p{ color:#333; }
+  
+  /* TUDO MAIS = letras CLARAS (não alterar) */
+  #diferenciais .diff-card span{ color:var(--white); }
+  #portfolio h2, #portfolio p{ color:var(--white); }
+  #contato h2, #contato p{ color:var(--mist); }
+
+  /* SERVIÇOS */
+  .grid-4{ display:grid; gap:24px; margin-top:64px; }
+  @media (min-width:640px){ .grid-4{ grid-template-columns:1fr 1fr; } }
+  @media (min-width:1024px){ .grid-4{ grid-template-columns:repeat(4,1fr); } }
+  .service-card{ padding:32px; transition:transform .3s, border-color .3s; }
+  .service-card:hover{ transform:translateY(-8px); border-color:rgba(123,44,191,.4); }
+  .service-icon{ display:inline-flex; padding:14px; border-radius:16px; }
+  .service-card h3{ margin-top:24px; font-size:1.1rem; font-weight:700; }
+  .service-card ul{ margin-top:16px; list-style:none; display:flex; flex-direction:column; gap:10px; }
+  .service-card li{ display:flex; gap:8px; align-items:flex-start; font-size:.9rem; color:var(--mist-dim); }
+  .dot{ margin-top:7px; width:4px; height:4px; border-radius:999px; background:var(--gold); flex-shrink:0; }
+
+  /* DIFERENCIAIS */
+  .grid-3{ display:grid; gap:20px; margin-top:64px; }
+  @media (min-width:640px){ .grid-3{ grid-template-columns:1fr 1fr; } }
+  @media (min-width:1024px){ .grid-3{ grid-template-columns:1fr 1fr 1fr; } }
+  .diff-card{ display:flex; align-items:center; gap:16px; padding:24px; transition:transform .3s; }
+  .diff-card:hover{ transform:scale(1.02); }
+  .diff-icon{ flex-shrink:0; width:48px; height:48px; border-radius:999px; border:1px solid rgba(212,175,55,.4); color:var(--gold); display:flex; align-items:center; justify-content:center; }
+  .diff-card span{ font-family:'Poppins',sans-serif; font-weight:600; color:var(--white); }
+
+  /* PROCESSO */
+  .process-card{ padding:28px; }
+  .process-card .num{ font-family:'Poppins',sans-serif; font-weight:700; color:var(--gold); font-size:.9rem; }
+  .process-card h3{ margin-top:8px; font-size:1.25rem; font-weight:700; }
+  .process-card p{ margin-top:8px; font-size:.9rem; color:var(--mist-dim); }
+
+  /* PORTFÓLIO */
+  .portfolio-card{ position:relative; aspect-ratio:4/3; overflow:hidden; transition:transform .3s; }
+  .portfolio-card:hover{ transform:scale(1.03); }
+  .portfolio-inner{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; }
+  .portfolio-inner span:first-of-type{ font-family:'Poppins',sans-serif; font-weight:600; color:var(--white); font-size:.95rem; }
+  .portfolio-inner span:last-of-type{ color:var(--mist-faint); }
+
+  /* CTA */
+  .cta-section{ position:relative; overflow:hidden; padding:96px 0; }
+  .cta-bg{ position:absolute; inset:0; background:linear-gradient(135deg,var(--violet),var(--azure)); opacity:.92; }
+  .cta-inner{ position:relative; max-width:720px; margin:0 auto; padding:0 24px; text-align:center; }
+  .cta-inner h2{ font-size:1.9rem; font-weight:700; color:#fff; }
+  @media (min-width:640px){ .cta-inner h2{ font-size:2.4rem; } }
+  @media (min-width:768px){ .cta-inner h2{ font-size:2.9rem; } }
+  .cta-inner p{ margin-top:20px; font-size:1.1rem; color:rgba(255,255,255,.9); }
+
+  /* FAQ */
+  .faq-wrap{ max-width:720px; margin:0 auto; padding:0 24px; }
+  .faq-list{ margin-top:48px; display:flex; flex-direction:column; gap:16px; }
+  .faq-item{ overflow:hidden; }
+  .faq-btn{ display:flex; width:100%; align-items:center; justify-content:space-between; gap:16px; padding:20px 24px; text-align:left; }
+  .faq-btn span:first-child{ font-family:'Poppins',sans-serif; font-weight:600; color:var(--white); }
+  .faq-icon{ flex-shrink:0; color:var(--gold); transition:transform .25s; font-size:1.2rem; }
+  .faq-answer{ overflow:hidden; max-height:0; transition:max-height .3s ease; }
+  .faq-answer p{ padding:0 24px 24px; font-size:.9rem; line-height:1.7; color:var(--mist-dim); }
+
+  /* CONTATO */
+  .contact-grid{ display:grid; gap:56px; }
+  @media (min-width:1024px){ .contact-grid{ grid-template-columns:2fr 3fr; } }
+  form.contact-form{ padding:36px; }
+  @media (min-width:640px){ form.contact-form{ padding:44px; } }
+  .form-grid{ display:grid; gap:24px; }
+  @media (min-width:640px){ .form-grid{ grid-template-columns:1fr 1fr; } }
+  .form-field{ display:flex; flex-direction:column; }
+  .form-field.full{ grid-column:1/-1; }
+  .form-field label{ margin-bottom:8px; font-size:.85rem; color:var(--mist-dim); }
+  .form-field input, .form-field textarea{
+    width:100%; border-radius:12px; border:1px solid rgba(212,175,55,.3);
+    background:rgba(0,0,0,.4); padding:14px 16px; color:var(--white); font-family:inherit; font-size:.95rem; outline:none; transition:border-color .3s;
+  }
+  .form-field input::placeholder, .form-field textarea::placeholder{ color:rgba(229,231,235,.7); }
+  .form-field input:focus, .form-field textarea:focus{ border-color:rgba(212,175,55,.6); }
+  .form-field textarea{ resize:none; }
+  .form-error{ margin-top:16px; font-size:.9rem; color:#f87171; display:none; }
+  form.contact-form button[type="submit"]{ margin-top:32px; }
+
+  /* RODAPÉ */
+  footer{ border-top:1px solid rgba(255,255,255,.06); background:var(--obsidian); }
+  .footer-inner{ display:flex; flex-direction:column; align-items:center; gap:24px; text-align:center; padding:56px 24px; }
+  .footer-logo{ font-family:'Poppins',sans-serif; font-weight:700; font-size:1.25rem; }
+  .footer-tag{ letter-spacing:.35em; font-size:.7rem; font-weight:600; text-transform:uppercase; color:var(--mist-faint); }
+  .social-row{ display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:12px; }
+  .social-btn{ width:44px; height:44px; border-radius:999px; display:flex; align-items:center; justify-content:center; color:var(--mist-dim); transition:color .3s, border-color .3s; }
+  .social-btn:hover{ color:var(--gold); border-color:rgba(212,175,55,.5); }
+  .footer-divider{ margin-top:8px; height:1px; width:100%; max-width:420px; background:linear-gradient(90deg, transparent, rgba(255,255,255,.12), transparent); }
+  .footer-copy{ font-size:.75rem; color:rgba(229,231,235,.4); }
+
+  .cursor-dot, .cursor-ring{ position:fixed; top:0; left:0; pointer-events:none; z-index:100; }
+  .cursor-dot{ width:12px; height:12px; border-radius:999px; background:var(--gold); }
+  .cursor-ring{ width:34px; height:34px; margin:-11px; border-radius:999px; border:1px solid rgba(212,175,55,.6); transition:width .25s,height .25s,margin .25s; }
+  @media (max-width:768px), (hover:none){ .cursor-dot,.cursor-ring{ display:none; } }
+  @media (prefers-reduced-motion: reduce){ *{ animation-duration:.001ms !important; transition-duration:.001ms !important; } }
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--gold); outline-offset:3px; }
+  svg{ display:block; }
+</style>
+</head>
+<body>
+
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- HEADER -->
+<header id="header">
+  <div class="container header-row">
+    <a href="#topo" class="logo"><span class="grad-cool">LK</span> Marketing <span class="grad-gold">Studio</span></a>
+    <nav class="desktop-nav">
+      <a href="#sobre">Sobre</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#diferenciais">Diferenciais</a>
+      <a href="#processo">Processo</a>
+      <a href="#portfolio">Portfólio</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <a href="#contato" class="btn btn-primary header-cta">Solicitar orçamento</a>
+    <button id="menuBtn" class="menu-btn" aria-label="Abrir menu">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- MOBILE MENU -->
+<div id="mobileMenu" class="mobile-menu">
+  <div class="mobile-menu-top">
+    <span class="logo grad-cool">LK Studio</span>
+    <button id="closeMenuBtn" aria-label="Fechar menu">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E5E7EB" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <nav class="mobile-nav">
+    <a href="#sobre" class="mobile-link">Sobre</a>
+    <a href="#servicos" class="mobile-link">Serviços</a>
+    <a href="#diferenciais" class="mobile-link">Diferenciais</a>
+    <a href="#processo" class="mobile-link">Processo</a>
+    <a href="#portfolio" class="mobile-link">Portfólio</a>
+    <a href="#faq" class="mobile-link">FAQ</a>
+    <a href="#contato" class="mobile-link">Contato</a>
+    <a href="#contato" class="btn btn-primary mobile-link" style="margin-top:8px;">Solicitar orçamento</a>
+  </nav>
+</div>
+
+<!-- HERO -->
+<section id="topo" class="hero">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-inner">
+    <span class="reveal in eyebrow glass hero-badge">Estratégia · Design · Conteúdo</span>
+    <h1 class="reveal in hero-title" style="transition-delay:.1s">
+      Transformamos ideias em <span class="grad-cool">marcas</span> que geram <span class="grad-gold">resultados.</span>
+    </h1>
+    <p class="reveal in hero-sub" style="transition-delay:.2s">
+      A LK Marketing Studio une estratégia, design e conteúdo para construir marcas fortes, gerar autoridade e impulsionar empresas no ambiente digital.
+    </p>
+    <div class="reveal in hero-actions" style="transition-delay:.3s">
+      <a href="#contato" class="btn btn-primary">
+        Solicitar orçamento
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="#servicos" class="btn btn-outline">Conhecer nossos serviços</a>
+    </div>
+  </div>
+
+  <a href="#sobre" class="scroll-cue" aria-label="Rolar para a próxima seção">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+  </a>
+</section>
+
+<!-- SOBRE -->
+<section id="sobre" class="section">
+  <div class="container about-grid">
+    <div class="reveal">
+      <span class="eyebrow">Quem somos</span>
+      <h2 class="section-title">Muito além de <span class="grad-cool">uma agência.</span></h2>
+      <p class="body-text">A LK Marketing Studio nasceu para transformar ideias em marcas memoráveis. Nosso foco é unir criatividade, estratégia e tecnologia para entregar soluções que realmente geram resultados.</p>
+      <p class="body-text">Acreditamos que marketing vai muito além de criar posts: é construir posicionamento, fortalecer marcas e conectar empresas às pessoas certas.</p>
+    </div>
+    <div class="reveal">
+      <div class="glass about-card">
+        <div class="about-stats">
+          <div><div class="counter grad-gold" data-target="4" data-suffix="+">0+</div><p class="counter-label">Frentes de atuação</p></div>
+          <div><div class="counter grad-gold" data-target="360" data-suffix="°">0°</div><p class="counter-label">Visão de marca</p></div>
+          <div><div class="counter grad-gold" data-target="100" data-suffix="%">0%</div><p class="counter-label">Foco em resultado</p></div>
+          <div><div class="counter grad-gold" data-target="6" data-suffix="">0</div><p class="counter-label">Etapas no processo</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVIÇOS -->
+<section id="servicos" class="section section-alt">
+  <div class="container">
+    <div class="reveal center max-w">
+      <span class="eyebrow">O que fazemos</span>
+      <h2 class="section-title">Soluções completas para sua marca</h2>
+    </div>
+    <div class="grid-4">
+
+      <div class="reveal glass service-card">
+        <div class="service-icon brand-gradient glow">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+        </div>
+        <h3>Marketing Digital</h3>
+        <ul>
+          <li><span class="dot"></span>Gestão de Redes Sociais</li>
+          <li><span class="dot"></span>Planejamento Estratégico</li>
+          <li><span class="dot"></span>Calendário Editorial</li>
+          <li><span class="dot"></span>Produção de Conteúdo</li>
+        </ul>
+      </div>
+
+      <div class="reveal glass service-card" style="transition-delay:.1s">
+        <div class="service-icon brand-gradient glow">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2a10 10 0 1 0 0 20 2 2 0 0 0 0-4h-1a2 2 0 0 1 0-4h4a2 2 0 0 0 2-2 10 10 0 0 0-5-9z"/></svg>
+        </div>
+        <h3>Design</h3>
+        <ul>
+          <li><span class="dot"></span>Logotipos</li>
+          <li><span class="dot"></span>Identidade Visual</li>
+          <li><span class="dot"></span>Branding</li>
+          <li><span class="dot"></span>Social Media</li>
+          <li><span class="dot"></span>Materiais Gráficos</li>
+        </ul>
+      </div>
+
+      <div class="reveal glass service-card" style="transition-delay:.2s">
+        <div class="service-icon brand-gradient glow">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="m22 8-6 4 6 4V8Z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg>
+        </div>
+        <h3>Audiovisual</h3>
+        <ul>
+          <li><span class="dot"></span>Edição de Vídeos</li>
+          <li><span class="dot"></span>Reels</li>
+          <li><span class="dot"></span>TikTok</li>
+          <li><span class="dot"></span>Shorts</li>
+          <li><span class="dot"></span>Captação de Conteúdo</li>
+        </ul>
+      </div>
+
+      <div class="reveal glass service-card" style="transition-delay:.3s">
+        <div class="service-icon brand-gradient glow">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+        </div>
+        <h3>Impressos</h3>
+        <ul>
+          <li><span class="dot"></span>Cartões</li>
+          <li><span class="dot"></span>Panfletos</li>
+          <li><span class="dot"></span>Catálogos</li>
+          <li><span class="dot"></span>Fachadas</li>
+          <li><span class="dot"></span>Banners</li>
+          <li><span class="dot"></span>Cardápios</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- DIFERENCIAIS -->
+<section id="diferenciais" class="section">
+  <div class="container">
+    <div class="reveal center max-w">
+      <span class="eyebrow">Por que a LK</span>
+      <h2 class="section-title">Nossos diferenciais</h2>
+    </div>
+    <div class="grid-3">
+      <div class="reveal glass diff-card">
+        <div class="diff-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+        <span>Estratégia personalizada</span>
+      </div>
+      <div class="reveal glass diff-card" style="transition-delay:.05s">
+        <div class="diff-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 0C1.46 6.7 1.33 10.28 4 13l8 8 8-8c2.67-2.72 2.54-6.3.42-8.42z"/></svg></div>
+        <span>Atendimento humanizado</span>
+      </div>
+      <div class="reveal glass diff-card" style="transition-delay:.1s">
+        <div class="diff-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M3 12h18"/></svg></div>
+        <span>Criatividade</span>
+      </div>
+      <div class="reveal glass diff-card" style="transition-delay:.15s">
+        <div class="diff-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div>
+        <span>Organização</span>
+      </div>
+      <div class="reveal glass diff-card" style="transition-delay:.2s">
+        <div class="diff-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <span>Comunicação transparente</span>
+      </div>
+      <div class="reveal glass diff-card" style="transition-delay:.25s">
+        <div class="diff-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+        <span>Soluções completas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESSO -->
+<section id="processo" class="section section-alt">
+  <div class="container">
+    <div class="reveal center max-w">
+      <span class="eyebrow">Como trabalhamos</span>
+      <h2 class="section-title">Um processo claro, do início ao crescimento</h2>
+    </div>
+    <div class="grid-3">
+      <div class="reveal glass process-card"><span class="num">01</span><h3>Briefing</h3><p>Entendemos seu negócio, seu público e seus objetivos.</p></div>
+      <div class="reveal glass process-card" style="transition-delay:.05s"><span class="num">02</span><h3>Planejamento</h3><p>Traçamos a estratégia e o caminho para os resultados.</p></div>
+      <div class="reveal glass process-card" style="transition-delay:.1s"><span class="num">03</span><h3>Criação</h3><p>Damos forma às ideias com design e conteúdo de qualidade.</p></div>
+      <div class="reveal glass process-card" style="transition-delay:.15s"><span class="num">04</span><h3>Aprovação</h3><p>Alinhamos cada detalhe com transparência antes de publicar.</p></div>
+      <div class="reveal glass process-card" style="transition-delay:.2s"><span class="num">05</span><h3>Publicação</h3><p>Colocamos a estratégia em movimento nos canais certos.</p></div>
+      <div class="reveal glass process-card" style="transition-delay:.25s"><span class="num">06</span><h3>Crescimento</h3><p>Acompanhamos resultados e evoluímos a estratégia.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFÓLIO -->
+<section id="portfolio" class="section">
+  <div class="container">
+    <div class="reveal center max-w">
+      <span class="eyebrow">Portfólio</span>
+      <h2 class="section-title">Projetos em construção</h2>
+      <p class="lead">Este espaço será atualizado com os cases da LK Marketing Studio.</p>
+    </div>
+    <div class="grid-3">
+      <div class="reveal glass portfolio-card">
+        <div class="brand-gradient-soft" style="position:absolute;inset:0;"></div>
+        <div class="portfolio-inner">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+          <span>Instagram</span><span class="eyebrow" style="font-size:.65rem;">Social Media</span>
+        </div>
+      </div>
+      <div class="reveal glass portfolio-card" style="transition-delay:.05s">
+        <div class="brand-gradient-soft" style="position:absolute;inset:0;"></div>
+        <div class="portfolio-inner">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><path d="M12.89 1.45l8 4A2 2 0 0 1 22 7.24v9.53a2 2 0 0 1-1.11 1.79l-8 4a2 2 0 0 1-1.79 0l-8-4a2 2 0 0 1-1.1-1.8V7.24a2 2 0 0 1 1.11-1.79l8-4a2 2 0 0 1 1.78 0z"/></svg>
+          <span>Logotipos</span><span class="eyebrow" style="font-size:.65rem;">Branding</span>
+        </div>
+      </div>
+      <div class="reveal glass portfolio-card" style="transition-delay:.1s">
+        <div class="brand-gradient-soft" style="position:absolute;inset:0;"></div>
+        <div class="portfolio-inner">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <span>Websites</span><span class="eyebrow" style="font-size:.65rem;">Digital</span>
+        </div>
+      </div>
+      <div class="reveal glass portfolio-card" style="transition-delay:.15s">
+        <div class="brand-gradient-soft" style="position:absolute;inset:0;"></div>
+        <div class="portfolio-inner">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2a10 10 0 1 0 0 20 2 2 0 0 0 0-4h-1a2 2 0 0 1 0-4h4a2 2 0 0 0 2-2 10 10 0 0 0-5-9z"/></svg>
+          <span>Identidade Visual</span><span class="eyebrow" style="font-size:.65rem;">Design</span>
+        </div>
+      </div>
+      <div class="reveal glass portfolio-card" style="transition-delay:.2s">
+        <div class="brand-gradient-soft" style="position:absolute;inset:0;"></div>
+        <div class="portfolio-inner">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><path d="m22 8-6 4 6 4V8Z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg>
+          <span>Reels</span><span class="eyebrow" style="font-size:.65rem;">Audiovisual</span>
+        </div>
+      </div>
+      <div class="reveal glass portfolio-card" style="transition-delay:.25s">
+        <div class="brand-gradient-soft" style="position:absolute;inset:0;"></div>
+        <div class="portfolio-inner">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          <span>Em breve</span><span class="eyebrow" style="font-size:.65rem;">Novo projeto</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-bg"></div>
+  <div class="cta-inner reveal">
+    <h2>Sua marca merece mais do que presença digital.</h2>
+    <p>Ela merece estratégia, identidade e resultados.</p>
+    <a href="#contato" class="btn btn-dark" style="margin-top:40px;">
+      Vamos conversar
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="section section-alt">
+  <div class="faq-wrap">
+    <div class="reveal center">
+      <span class="eyebrow">Dúvidas frequentes</span>
+      <h2 class="section-title" style="font-size:2rem;">Perguntas frequentes</h2>
+    </div>
+    <div class="faq-list">
+      <div class="reveal glass faq-item">
+        <button class="faq-btn">
+          <span>Como funciona o primeiro contato com a LK Marketing Studio?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer"><p>Enviamos um formulário de briefing para entender seu negócio, objetivos e público. A partir disso, montamos uma proposta sob medida.</p></div>
+      </div>
+      <div class="reveal glass faq-item">
+        <button class="faq-btn">
+          <span>Vocês atendem empresas de qualquer segmento?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer"><p>Sim. Adaptamos estratégia, identidade visual e conteúdo para o momento e o público de cada negócio, independentemente do segmento.</p></div>
+      </div>
+      <div class="reveal glass faq-item">
+        <button class="faq-btn">
+          <span>É possível contratar apenas um serviço específico?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer"><p>Sim, os serviços podem ser contratados de forma isolada ou combinados em um pacote estratégico mais completo.</p></div>
+      </div>
+      <div class="reveal glass faq-item">
+        <button class="faq-btn">
+          <span>Qual o prazo médio para ver os primeiros resultados?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer"><p>Varia conforme o serviço e o ponto de partida da marca, mas alinhamos expectativas e prazos de forma clara já no planejamento.</p></div>
+      </div>
+      <div class="reveal glass faq-item">
+        <button class="faq-btn">
+          <span>Como é feito o acompanhamento dos projetos?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer"><p>Comunicação transparente em cada etapa, com aprovações claras antes da publicação e relatórios de acompanhamento.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section id="contato" class="section">
+  <div class="container contact-grid">
+    <div class="reveal">
+      <span class="eyebrow">Fale com a gente</span>
+      <h2 class="section-title" style="font-size:2rem;">Vamos construir sua marca?</h2>
+      <p class="lead">Conte um pouco sobre seu negócio e retornamos com os próximos passos para sua estratégia.</p>
+    </div>
+    <div class="reveal">
+      <form id="contactForm" class="glass contact-form">
+        <div class="form-grid">
+          <div class="form-field"><label>Nome</label><input name="name" type="text" placeholder="Seu nome" /></div>
+          <div class="form-field"><label>E-mail</label><input name="email" type="email" placeholder="voce@empresa.com" /></div>
+          <div class="form-field full"><label>Mensagem</label><textarea name="message" rows="4" placeholder="Conte sobre seu projeto ou objetivo"></textarea></div>
+        </div>
+        <p id="formError" class="form-error"></p>
+        <button type="submit" class="btn btn-primary btn-block">
+          <span id="formBtnText">Enviar mensagem</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- RODAPÉ -->
+<footer>
+  <div class="footer-inner">
+    <span class="footer-logo"><span class="grad-cool">LK</span> Marketing <span class="grad-gold">Studio</span></span>
+    <p class="footer-tag">Estratégia • Design • Conteúdo</p>
+    <div class="social-row">
+      <a href="https://instagram.com/lkmarketingstudio" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="glass social-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+      <a href="mailto:contato@lkmarketingstudio.com.br" aria-label="E-mail" class="glass social-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg></a>
+    </div>
+    <div class="footer-divider"></div>
+    <p class="footer-copy" id="year">© LK Marketing Studio. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+<script>
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 24);
+  });
+
+  const menuBtn = document.getElementById('menuBtn');
+  const closeMenuBtn = document.getElementById('closeMenuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  menuBtn.addEventListener('click', () => mobileMenu.classList.add('open'));
+  closeMenuBtn.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  const counters = document.querySelectorAll('.counter');
+  const counterIO = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const target = parseInt(el.dataset.target, 10);
+      const suffix = el.dataset.suffix || '';
+      const duration = 1400;
+      const startTime = performance.now();
+      function tick(now) {
+        const progress = Math.min((now - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(eased * target) + suffix;
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+      counterIO.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(c => counterIO.observe(c));
+
+  document.querySelectorAll('.faq-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const answer = item.querySelector('.faq-answer');
+      const icon = btn.querySelector('.faq-icon');
+      const isOpen = answer.style.maxHeight && answer.style.maxHeight !== '0px';
+      document.querySelectorAll('.faq-answer').forEach(a => a.style.maxHeight = '0px');
+      document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = 'rotate(0deg)');
+      if (!isOpen) { answer.style.maxHeight = answer.scrollHeight + 'px'; icon.style.transform = 'rotate(45deg)'; }
+    });
+  });
+
+  const cursorDot = document.getElementById('cursorDot');
+  const cursorRing = document.getElementById('cursorRing');
+  const hasFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (hasFinePointer) {
+    let ringX = 0, ringY = 0;
+    window.addEventListener('mousemove', (e) => {
+      cursorDot.style.transform = `translate(${e.clientX - 6}px, ${e.clientY - 6}px)`;
+      ringX = e.clientX; ringY = e.clientY;
+      const target = e.target.closest('a, button, [data-cursor-pointer]');
+      cursorRing.style.width = target ? '56px' : '34px';
+      cursorRing.style.height = target ? '56px' : '34px';
+    });
+    function animateRing() {
+      cursorRing.style.transform = `translate(${ringX}px, ${ringY}px)`;
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+  }
+
+  const form = document.getElementById('contactForm');
+  const formError = document.getElementById('formError');
+  const formBtnText = document.getElementById('formBtnText');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
+    const message = form.message.value.trim();
+    if (!name || !email || !message) {
+      formError.textContent = 'Preencha nome, e-mail e mensagem antes de enviar.';
+      formError.style.display = 'block';
+      return;
+    }
+    formError.style.display = 'none';
+    formBtnText.textContent = 'Mensagem enviada ✓';
+    form.reset();
+    setTimeout(() => { formBtnText.textContent = 'Enviar mensagem'; }, 3000);
+  });
+
+  document.getElementById('year').textContent = `© ${new Date().getFullYear()} LK Marketing Studio. Todos os direitos reservados.`;
+</script>
+</body>
+</html>
